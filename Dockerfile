@@ -21,6 +21,7 @@ RUN apk add --no-cache \
 		gettext \
 		git \
     	make \
+    	bash \
 	;
 
 RUN set -eux; \
@@ -85,6 +86,11 @@ RUN set -eux; \
 # copy sources
 COPY --link . ./
 RUN rm -Rf frankenphp/
+
+RUN set -eux; \
+	wget https://get.symfony.com/cli/installer -O - | bash \
+    mv /root/.symfony5/bin/symfony /usr/local/bin/symfony \
+	;
 
 RUN set -eux; \
 	mkdir -p var/cache var/log; \
